@@ -15,11 +15,14 @@ app.use("/api/user", router);
 app.use("/api/blog", blogRouter);
 
 const PORT = process.env.PORT || 8000;
-
+const B=process.env.DATABASE_URL;
 mongoose
-  .connect(process.env.DATABASE_URL)
-  .then(() => app.listen(PORT))
-  .then(() =>
-    console.log(`Connected To Database and listening at PORT ${PORT}`)
-  )
-  .catch((err) => console.log(err));
+  .connect('mongodb+srv://salma:salma@mernapp.geu28zf.mongodb.net/')
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Connected to Database and listening on PORT ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Failed to connect to Database:", err);
+  });
